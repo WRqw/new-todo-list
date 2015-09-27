@@ -7,7 +7,6 @@ if (data) {
 	state = JSON.parse(data);
 }
 
-
 window.addEventListener('load', function () {
 
 	var button = document.querySelector('.add');
@@ -28,16 +27,31 @@ window.addEventListener('load', function () {
 		list.appendChild(el);
 	}
 }
-
+	reset.addEventListener('click', function () {
+		localStorage.clear();
+		location.reload();
+		
+	});
 	button.addEventListener('click', function () {
 		var l = input.value;
 		state.items.push(l);
 		update();
 		localStorage.setItem('data', JSON.stringify(state));
-		input.value = '';
+		state.items.sort();
+			
 	});
-	reset.addEventListener('click', function () {
-		
-		
-	});
+
+	input.addEventListener('keydown', function(event) {
+		if (event.keyCode == 13) {
+	
+			var l = input.value;
+			state.items.push(l);
+			update();
+			localStorage.setItem('data', JSON.stringify(state));
+			input.value = '';
+			state.items.sort();
+		}
+	} );
+	
 })
+
